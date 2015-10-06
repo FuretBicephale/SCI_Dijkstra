@@ -1,4 +1,5 @@
 *.class
+*.csv
 
 # Eclipse project
 bin
