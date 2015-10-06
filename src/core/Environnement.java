@@ -33,6 +33,34 @@ public class Environnement {
 		return this.height;
 	}
 	
+	public int getNextX(int posX, int step) {		
+		int newPosX;
+		
+		if(this.isToric()) {
+			newPosX = (this.getWidth() + posX + step) % this.getWidth();
+		} else {
+			if(posX + step >= this.getWidth() || posX + step < 0)
+				step = 0;
+			newPosX = posX + step;
+		}
+		
+		return newPosX;		
+	}
+	
+	public int getNextY(int posY, int step) {		
+		int newPosY;
+		
+		if(this.isToric()) {
+			newPosY = (this.getHeight() + posY + step) % this.getHeight();
+		} else {
+			if(posY + step >= this.getHeight() || posY + step < 0)
+				step = 0;
+			newPosY = posY + step;
+		}
+		
+		return newPosY;
+	}
+	
 	public List<Agent> getNewAgents() {
 		return this.newAgents;
 	}

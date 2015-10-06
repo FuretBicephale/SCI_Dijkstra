@@ -30,34 +30,6 @@ public abstract class Fish extends Agent {
 		this.emptyNeighboring = new ArrayList<int[]>();
 	}
 
-	protected int getNextX(int step) {		
-		int newPosX;
-		
-		if(this.env.isToric()) {
-			newPosX = (this.env.getWidth() + this.posX + step) % this.env.getWidth();
-		} else {
-			if(this.posX + step >= this.env.getWidth() || this.posX + step < 0)
-				step = 0;
-			newPosX = this.posX + step;
-		}
-		
-		return newPosX;		
-	}
-	
-	protected int getNextY(int step) {		
-		int newPosY;
-		
-		if(this.env.isToric()) {
-			newPosY = (this.env.getHeight() + this.posY + step) % this.env.getHeight();
-		} else {
-			if(this.posY + step >= this.env.getHeight() || this.posY + step < 0)
-				step = 0;
-			newPosY = this.posY + step;
-		}
-		
-		return newPosY;
-	}
-
 	public void decide() {
 
 		// Does nothing if dead
@@ -70,8 +42,8 @@ public abstract class Fish extends Agent {
 		// Look neighboring
 		for(int i = -1; i <= 1; i++) {
 			for(int j = -1; j <= 1; j++) {
-				int nextX = this.getNextX(i);
-				int nextY = this.getNextY(j);
+				int nextX = this.env.getNextX(this.posX, i);
+				int nextY = this.env.getNextY(this.posY, j);
 				
 				if(nextX == this.posX && nextY == this.posY)
 					continue;

@@ -41,8 +41,8 @@ public class Shark extends Fish {
 		// Search for food
 		for(int i = -1; i <= 1; i++) {
 			for(int j = -1; j <= 1; j++) {
-				int nextX = this.getNextX(i);
-				int nextY = this.getNextY(j);
+				int nextX = this.env.getNextX(this.posX, i);
+				int nextY = this.env.getNextY(this.posY, j);
 				
 				if(nextX == this.posX && nextY == this.posY)
 					continue;
