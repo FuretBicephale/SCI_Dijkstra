@@ -1,0 +1,9 @@
+set datafile separator ";"
+
+set title 'Population'                       # plot title
+set xlabel 'id_turn'                             # x-axis label
+set ylabel 'nbFish'                          # y-axis label
+
+plot 'values.csv' using 1:2 title "Population thons" with lines, 'values.csv' using 1:3 title "Population requins" with lines
+
+pause -1

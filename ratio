@@ -1,0 +1,9 @@
+set datafile separator ";"
+
+set title 'Ratio'                       # plot title
+set xlabel 'nb de thons'                             # x-axis label
+set ylabel 'nb de requins'                          # y-axis label
+
+plot 'values.csv' using 2:3 with lines
+
+pause -1
