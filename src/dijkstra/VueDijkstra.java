@@ -15,7 +15,6 @@ public class VueDijkstra extends Vue {
 		super(width, height, cellSize, name);
 	}
 
-	@Override
 	public void update(Observable o, Object arg) {
 		SMA sma = (SMA)o;
 		Image offScreen = this.envPanel.createImage(this.envPanel.getWidth(), this.envPanel.getHeight());

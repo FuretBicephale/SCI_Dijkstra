@@ -23,8 +23,8 @@ public class DijkstraComputer {
 		result[target.getPosX()][target.getPosY()] = 0;
 		
 		List<int[]> cellToCompute = new ArrayList<int[]>();
-		int[] coords = {target.getPosX(), target.getPosY()};
-		cellToCompute.add(coords);
+		int[] targetCell = {target.getPosX(), target.getPosY()};
+		cellToCompute.add(targetCell);
 		
 		while(cellToCompute.size() >= 1) {
 
@@ -32,21 +32,21 @@ public class DijkstraComputer {
 
 			for(int i = -1; i <= 1; i++) {
 				for(int j = -1; j <= 1; j++) {
-										
+												
 					int nextX = env.getNextX(cell[0], i);
 					int nextY = env.getNextY(cell[1], j);
 					
 					if(result[nextX][nextY] != -1)
 						continue;
-					
+
 					result[nextX][nextY] = result[cell[0]][cell[1]] + 1;
 					
-					coords[0] = nextX;
-					coords[1] = nextY;
+					int[] coords = {nextX, nextY};
 					cellToCompute.add(coords);
 					
 				}
 			}		
+			
 						
 		}
 		
