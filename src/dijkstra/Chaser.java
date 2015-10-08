@@ -10,7 +10,7 @@ import core.Mortal;
 
 public class Chaser extends Agent {
 	
-	public Chaser(Environnement env) throws BusyCellException {
+	public Chaser(Environnement env) {
 		super(env);
 	}
 	
@@ -46,9 +46,9 @@ public class Chaser extends Agent {
 		for(int i = -1; i <= 1; i++) {
 			for(int j = -1; j <= 1; j++) {
 
-				int nextX = this.env.getNextX(this.posX, Agent.r.nextInt() * 2 - 1);
-				int nextY = this.env.getNextY(this.posY, Agent.r.nextInt() * 2 - 1);
-
+				int nextX = this.env.getNextX(this.posX, i);
+				int nextY = this.env.getNextY(this.posY, j);
+				
 				if(nextX == this.posX && nextY == this.posY)
 					continue;
 				
@@ -62,7 +62,7 @@ public class Chaser extends Agent {
 				
 			}
 		}
-		
+				
 		Agent a = this.env.getAgent(minX, minY);
 		if(a != null && a instanceof Attractor)
 			((Mortal)a).die();

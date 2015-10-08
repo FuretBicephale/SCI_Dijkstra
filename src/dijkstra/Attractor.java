@@ -9,7 +9,7 @@ public class Attractor extends Mortal {
 	
 	private int[][] dijkstra;
 	
-	public Attractor(Environnement env) throws BusyCellException {
+	public Attractor(Environnement env) {
 		super(env);
 		dijkstra = DijkstraComputer.computeDijkstra(this.env, this);
 	}
