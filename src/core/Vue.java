@@ -2,7 +2,6 @@ package core;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.util.Observable;
 import java.util.Observer;
 
 import javax.swing.JFrame;

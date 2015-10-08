@@ -1,7 +1,6 @@
 package billes;
 
 import java.awt.Color;
-import java.util.Random;
 
 import core.Agent;
 import core.Environnement;

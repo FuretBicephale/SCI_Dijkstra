@@ -36,7 +36,7 @@ public class DijkstraComputer {
 					int nextX = env.getNextX(cell[0], i);
 					int nextY = env.getNextY(cell[1], j);
 					
-					if(result[nextX][nextY] != -1)
+					if(result[nextX][nextY] != -1 || env.getAgent(nextX, nextY) != null)
 						continue;
 
 					result[nextX][nextY] = result[cell[0]][cell[1]] + 1;

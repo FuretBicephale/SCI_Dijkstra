@@ -6,6 +6,7 @@ import java.util.List;
 import core.Agent;
 import core.BusyCellException;
 import core.Environnement;
+import core.Mortal;
 
 public class Shark extends Fish {
 
@@ -57,7 +58,7 @@ public class Shark extends Fish {
 		
 		// Eats if possible and moves to food cell
 		if(this.snackNeigbhoring.size() > 0) {			
-			Agent food = this.snackNeigbhoring.get(this.r.nextInt(this.snackNeigbhoring.size()));
+			Agent food = this.snackNeigbhoring.get(Agent.r.nextInt(this.snackNeigbhoring.size()));
 			
 			this.eat(food);
 
@@ -85,7 +86,7 @@ public class Shark extends Fish {
 			this.oldPosX = this.posX;
 			this.oldPosY = this.posY;
 			
-			int[] coords = this.emptyNeighboring.remove(this.r.nextInt(this.emptyNeighboring.size()));
+			int[] coords = this.emptyNeighboring.remove(Agent.r.nextInt(this.emptyNeighboring.size()));
 			
 			this.posX = coords[0];
 			this.posY = coords[1];
@@ -97,11 +98,11 @@ public class Shark extends Fish {
 	}
 	
 	protected void giveBirth(int x, int y) throws BusyCellException {
-		Shark child = new Shark(this.env, x, y);	
+		new Shark(this.env, x, y);	
 	}
 	
 	protected void eat(Agent a) {
-		((Fish)a).die();
+		((Mortal)a).die();
 		this.currentHungerCycle = 0;	
 	}
 	

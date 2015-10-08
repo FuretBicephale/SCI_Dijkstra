@@ -7,13 +7,13 @@ import java.util.List;
 import core.Agent;
 import core.BusyCellException;
 import core.Environnement;
+import core.Mortal;
 
-public abstract class Fish extends Agent {
+public abstract class Fish extends Mortal {
 	
 	private int birthCycle;
 	private int currentBirthCycle;
 	
-	protected boolean dead;
 	protected List<int[]> emptyNeighboring;
 
 	public Fish(Environnement env, int birthCycle) {
@@ -69,7 +69,7 @@ public abstract class Fish extends Agent {
 		// Gives birth if possible
 		if(this.currentBirthCycle >= this.birthCycle && this.emptyNeighboring.size() > 0) {
 			currentBirthCycle = 0;
-			int[] coords = this.emptyNeighboring.remove(this.r.nextInt(this.emptyNeighboring.size()));
+			int[] coords = this.emptyNeighboring.remove(Agent.r.nextInt(this.emptyNeighboring.size()));
 			try {
 				this.giveBirth(coords[0], coords[1]);
 			} catch(BusyCellException e) {
@@ -79,11 +79,6 @@ public abstract class Fish extends Agent {
 			currentBirthCycle++;			
 		}
 		
-	}
-	
-	protected void die() {
-		this.dead = true;
-		this.env.removeAgent(this);
 	}
 	
 	protected abstract void giveBirth(int x, int y) throws BusyCellException;
