@@ -55,7 +55,7 @@ public class Tuna extends Fish {
 			this.oldPosX = this.posX;
 			this.oldPosY = this.posY;
 			
-			int[] coords = this.emptyNeighboring.remove(this.r.nextInt(this.emptyNeighboring.size()));
+			int[] coords = this.emptyNeighboring.remove(Agent.r.nextInt(this.emptyNeighboring.size()));
 			this.posX = coords[0];
 			this.posY = coords[1];
 			
@@ -65,7 +65,7 @@ public class Tuna extends Fish {
 	}
 	
 	protected void giveBirth(int x, int y) throws BusyCellException {
-		Tuna child = new Tuna(this.env, x, y);		
+		new Tuna(this.env, x, y);		
 	}
 
 }

@@ -1,6 +1,5 @@
 package wator;
 
-import billes.Bille;
 import core.SMA;
 
 public class Simulation {
