@@ -16,5 +16,9 @@ public abstract class Mortal extends Agent {
 		this.dead = true;
 		this.env.removeAgent(this);
 	}
+	
+	public boolean isDead() {
+		return this.dead;
+	}
 
 }

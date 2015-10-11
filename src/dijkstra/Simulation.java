@@ -55,16 +55,16 @@ public class Simulation {
 		sma.init();
 		sma.addObserver(vue);
 		
+		for(int i = 0; i < nbWalls; i++) {
+			new Wall(sma.getEnv());
+		}
+		
 		for(int i = 0; i < nbAttractors; i++) {
 			new Attractor(sma.getEnv());
 		}
 		
 		for(int i = 0; i < nbChasers; i++) {
 			new Chaser(sma.getEnv());
-		}
-		
-		for(int i = 0; i < nbWalls; i++) {
-			new Wall(sma.getEnv());
 		}
 				
 		try {

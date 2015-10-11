@@ -58,7 +58,7 @@ public class Chaser extends Agent {
 					continue;
 				
 				for(int k = 0; k < attractors.size(); k++) {
-					if(minDijkstra == -1 || minDijkstra > dijkstras[k][nextX][nextY]) {
+					if(minDijkstra == -1 || (dijkstras[k][nextX][nextY] != -1 && minDijkstra > dijkstras[k][nextX][nextY])) {
 						minDijkstra = dijkstras[k][nextX][nextY];
 						minX = nextX;
 						minY = nextY;
@@ -67,10 +67,15 @@ public class Chaser extends Agent {
 				
 			}
 		}
+		
+		// L'agent est probablement entouré de murs ou la cible est innaccessible.
+		if (minDijkstra == -1) return;
 				
 		Agent a = this.env.getAgent(minX, minY);
-		if(a != null && a instanceof Attractor)
+		if(a != null && a instanceof Attractor && !((Mortal) a).isDead()) {
 			((Mortal)a).die();
+			//new Attractor(env);
+		}
 		
 		this.oldPosX = this.posX;
 		this.oldPosY = this.posY;
@@ -83,8 +88,27 @@ public class Chaser extends Agent {
 
 	@Override
 	public void draw(Graphics g, int cellSize) {
+//		int[][] dijkstra;
+//		Attractor attractor = null;
 		g.setColor(new Color(0, 210, 0));
 		g.fillOval(this.posX * cellSize, this.posY * cellSize, cellSize, cellSize);
+		
+//		for(int i = 0; i < this.env.getWidth(); i++) {
+//			for(int j = 0; j < this.env.getHeight(); j++) {
+//				Agent a = this.env.getAgent(i, j);
+//				if(a != null && a instanceof Attractor) {
+//					attractor = (Attractor) a;
+//				}
+//			}
+//		}
+//		if (attractor==null) return;
+//		dijkstra = DijkstraComputer.computeDijkstra(env, attractor);
+//		
+//		for (int i=0 ; i<env.getWidth() ; i++) {
+//			for (int j=0 ; j<env.getHeight() ; j++) {
+//				g.drawString(""+dijkstra[i][j], i*cellSize, j*cellSize+cellSize);
+//			}
+//		}
 	}
 
 }

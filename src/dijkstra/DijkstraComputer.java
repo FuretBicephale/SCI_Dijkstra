@@ -26,9 +26,10 @@ public class DijkstraComputer {
 		int[] targetCell = {target.getPosX(), target.getPosY()};
 		cellToCompute.add(targetCell);
 		
-		while(cellToCompute.size() >= 1) {
+		while(!cellToCompute.isEmpty()) {
 
 			int[] cell = cellToCompute.remove(0);
+			int dijkstraValue = result[cell[0]][cell[1]] + 1;
 
 			for(int i = -1; i <= 1; i++) {
 				for(int j = -1; j <= 1; j++) {
@@ -36,10 +37,10 @@ public class DijkstraComputer {
 					int nextX = env.getNextX(cell[0], i);
 					int nextY = env.getNextY(cell[1], j);
 					
-					if(result[nextX][nextY] != -1 || env.getAgent(nextX, nextY) != null)
+					if((result[nextX][nextY] != -1 && result[nextX][nextY] <= dijkstraValue) || env.getAgent(nextX, nextY) != null)
 						continue;
 
-					result[nextX][nextY] = result[cell[0]][cell[1]] + 1;
+					result[nextX][nextY] = dijkstraValue;
 					
 					int[] coords = {nextX, nextY};
 					cellToCompute.add(coords);
