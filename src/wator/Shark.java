@@ -1,5 +1,7 @@
 package wator;
 
+import java.awt.Color;
+import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -104,6 +106,12 @@ public class Shark extends Fish {
 	protected void eat(Agent a) {
 		((Mortal)a).die();
 		this.currentHungerCycle = 0;	
+	}
+
+	@Override
+	public void draw(Graphics g, int cellSize) {
+		g.setColor(Color.BLUE);
+		g.fillOval(this.posX*cellSize, this.posY*cellSize, cellSize, cellSize);
 	}
 	
 }

@@ -5,7 +5,7 @@ import core.SMA;
 public class Simulation {
 		
 	public static void printHelp() {
-		System.err.println("Use : Java Simulation envWidth envHeight cellSize toric sleepLength nbAttractors nbChasers nbTurns");
+		System.err.println("Use : Java Simulation envWidth envHeight cellSize toric sleepLength nbAttractors nbChasers nbWalls nbTurns");
 		System.err.println("envWidth = Environment width (int)");
 		System.err.println("envHeight = Environment height (int)");
 		System.err.println("cellSize = Graphical size of each cell (int)");
@@ -13,16 +13,17 @@ public class Simulation {
 		System.err.println("sleepLength = Time in ms to wait between each turn (int)");
 		System.err.println("nbAttractors = Number of attractors created for the simulation (int)");
 		System.err.println("nbChasers = Number of chasers created for the simulation (int)");
+		System.err.println("nbWalls = Number of walls created for the simulation (int)");
 		System.err.println("nbTurns = Number of turns of the simulation (int)");
 	}
 	
 	// Use : Java Simulation envWidth envHeight cellSize toric sleepLength nbAttractors nbChasers nbTurns
 	public static void main(String[] args) {
 		
-		int width, height, cellSize, sleepLength, nbAttractors, nbChasers, nbTurns=0;
+		int width, height, cellSize, sleepLength, nbAttractors, nbChasers, nbWalls, nbTurns=0;
 		boolean toric, sansFin = false;
 		
-		if(args.length < 7 || args.length > 8) {
+		if(args.length < 8 || args.length > 9) {
 			System.err.println("Error : Unexpected number of parameters");
 			printHelp();
 			return;
@@ -36,8 +37,9 @@ public class Simulation {
 			sleepLength = Integer.parseInt(args[4]);
 			nbAttractors = Integer.parseInt(args[5]);
 			nbChasers = Integer.parseInt(args[6]);
-			if (args.length == 8)
-				nbTurns = Integer.parseInt(args[7]);
+			nbWalls = Integer.parseInt(args[7]);
+			if (args.length == 9)
+				nbTurns = Integer.parseInt(args[8]);
 			else
 				sansFin = true;
 		} catch(NumberFormatException e) {
@@ -46,7 +48,7 @@ public class Simulation {
 			return;
 		}
 
-		VueDijkstra vue = new VueDijkstra(width, height, cellSize, "SCI_Wator");
+		VueDijkstra vue = new VueDijkstra(width, height, cellSize, "SCI_Dijkstra");
 		vue.init();
 		
 		SMA sma = new SMA(width, height, toric, sleepLength);
@@ -59,6 +61,10 @@ public class Simulation {
 		
 		for(int i = 0; i < nbChasers; i++) {
 			new Chaser(sma.getEnv());
+		}
+		
+		for(int i = 0; i < nbWalls; i++) {
+			new Wall(sma.getEnv());
 		}
 				
 		try {

@@ -1,5 +1,7 @@
 package dijkstra;
 
+import java.awt.Color;
+import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,6 +37,9 @@ public class Chaser extends Agent {
 				}
 			}
 		}
+		
+		// Si il n'y a plus d'attracteurs, on arrete la poursuite.
+		if (attractors.isEmpty()) return;
 		
 		// Get dijkstra for each attractor
 		dijkstras = new int[attractors.size()][][];
@@ -74,6 +79,12 @@ public class Chaser extends Agent {
 		
 		this.env.moveAgent(this);
 		
+	}
+
+	@Override
+	public void draw(Graphics g, int cellSize) {
+		g.setColor(new Color(0, 210, 0));
+		g.fillOval(this.posX * cellSize, this.posY * cellSize, cellSize, cellSize);
 	}
 
 }

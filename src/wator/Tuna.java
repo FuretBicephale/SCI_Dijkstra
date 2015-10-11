@@ -1,5 +1,7 @@
 package wator;
 
+import java.awt.Color;
+import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -66,6 +68,12 @@ public class Tuna extends Fish {
 	
 	protected void giveBirth(int x, int y) throws BusyCellException {
 		new Tuna(this.env, x, y);		
+	}
+
+	@Override
+	public void draw(Graphics g, int cellSize) {
+		g.setColor(Color.GRAY);
+		g.fillOval(this.posX*cellSize, this.posY*cellSize, cellSize, cellSize);		
 	}
 
 }

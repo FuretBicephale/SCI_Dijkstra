@@ -1,5 +1,6 @@
 package core;
 
+import java.awt.Graphics;
 import java.util.Random;
 
 public abstract class Agent {
@@ -63,6 +64,8 @@ public abstract class Agent {
 		
 	// Ask agent to make a decision for the current turn
 	public abstract void decide();
+	
+	public abstract void draw(Graphics g, int cellSize);
 	
 }
 

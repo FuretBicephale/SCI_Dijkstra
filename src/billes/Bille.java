@@ -1,6 +1,7 @@
 package billes;
 
 import java.awt.Color;
+import java.awt.Graphics;
 
 import core.Agent;
 import core.Environnement;
@@ -69,6 +70,12 @@ public class Bille extends Agent {
 	
 	public Color getColor() {
 		return color;
+	}
+
+	@Override
+	public void draw(Graphics g, int cellSize) {
+		g.setColor(this.color);
+		g.fillOval(this.posX*cellSize, this.posY*cellSize, cellSize, cellSize);
 	}
 	
 }
