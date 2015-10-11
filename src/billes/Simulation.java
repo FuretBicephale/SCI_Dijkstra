@@ -44,7 +44,7 @@ public class Simulation {
 			return;
 		}
 
-		VueBilles vue = new VueBilles(width, height, marbleSize);
+		VueBilles vue = new VueBilles(width, height, marbleSize, "SCI_Billes");
 		vue.init();
 		
 		SMA sma = new SMA(width, height, toric, sleepLength);

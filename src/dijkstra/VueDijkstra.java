@@ -12,7 +12,7 @@ import core.Vue;
 public class VueDijkstra extends Vue {
 
 	public VueDijkstra(int width, int height, int cellSize, String name) {
-		super(width, height, cellSize, name);
+		super(width, height, cellSize, name, Color.BLACK);
 	}
 
 }

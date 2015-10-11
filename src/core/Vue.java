@@ -10,21 +10,21 @@ import java.util.Observer;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import dijkstra.Wall;
-
 public abstract class Vue implements Observer {
 
 	private JFrame frame;
 	private String name;
+	private Color backgroundColor;
 	
 	protected JPanel envPanel;
 	protected int width, height, cellSize;
 	
-	public Vue(int width, int height, int cellSize, String name) {
+	public Vue(int width, int height, int cellSize, String name, Color bgColor) {
 		this.width = width;
 		this.height = height;
 		this.cellSize = cellSize;
 		this.name = name;
+		this.backgroundColor = bgColor;
 	}
 	
 	public void init() {
@@ -35,7 +35,7 @@ public abstract class Vue implements Observer {
 		
 		this.envPanel = new JPanel();
 		this.envPanel.setPreferredSize(new Dimension(this.width * this.cellSize, this.height * this.cellSize));
-		this.envPanel.setBackground(Color.white);
+		this.envPanel.setBackground(this.backgroundColor);
 		
 		this.frame.setContentPane(this.envPanel);
 		this.frame.pack();

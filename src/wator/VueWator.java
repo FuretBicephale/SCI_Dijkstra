@@ -19,7 +19,8 @@ public class VueWator extends Vue {
 	private int idTurn = 0;
 
 	public VueWator(int width, int height, int cellSize, String name) {
-		super(width, height, cellSize, name);
+		super(width, height, cellSize, name, new Color(192, 230, 255));
+
 		try {
 			FileWriter fw = new FileWriter(statsFileName, false);
 			this.bwStats = new BufferedWriter(fw);
@@ -31,8 +32,9 @@ public class VueWator extends Vue {
 	}
 	
 	public void update(Observable arg0, Object arg1) {
+		super.update(arg0, arg1);
 		SMA sma = (SMA)arg0;
-
+		
 		int nbTuna = 0;
 		int nbShark = 0;
 
