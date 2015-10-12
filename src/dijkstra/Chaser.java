@@ -12,12 +12,16 @@ import core.Mortal;
 
 public class Chaser extends Agent {
 	
+	private int[][] dijkstra;
+	
 	public Chaser(Environnement env) {
 		super(env);
+		dijkstra = DijkstraComputer.computeDijkstra(this.env, this);
 	}
 	
 	public Chaser(Environnement env, int x, int y) throws BusyCellException {
 		super(env, x, y);
+		dijkstra = DijkstraComputer.computeDijkstra(this.env, this);
 	}
 	
 	public void decide() {
@@ -74,7 +78,7 @@ public class Chaser extends Agent {
 		Agent a = this.env.getAgent(minX, minY);
 		if(a != null && a instanceof Attractor && !((Mortal) a).isDead()) {
 			((Mortal)a).die();
-			//new Attractor(env);
+			//new Attractor(env); // Quand y en a plus y en a encore!
 		}
 		
 		this.oldPosX = this.posX;
@@ -84,6 +88,12 @@ public class Chaser extends Agent {
 		
 		this.env.moveAgent(this);
 		
+		dijkstra = DijkstraComputer.computeDijkstra(this.env, this);
+		
+	}
+	
+	public int[][] getDijkstra() {
+		return this.dijkstra;
 	}
 
 	@Override
