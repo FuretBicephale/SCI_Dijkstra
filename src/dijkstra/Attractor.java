@@ -64,7 +64,9 @@ public class Attractor extends Mortal {
 		List<Chaser> chasers = new ArrayList<Chaser>();
 		int[][][] dijkstras;
 		int cellSafeness=Integer.MAX_VALUE, maxSafeness;
-		int safestPlaceX=0, safestPlaceY=0;
+		List<Integer> safestPlacesX = new ArrayList<Integer>();
+		List<Integer> safestPlacesY = new ArrayList<Integer>();
+		int randomlyChosenIndex;
 		
 		// Get the chasers
 		for(int i = 0; i < this.env.getWidth(); i++) {
@@ -105,10 +107,15 @@ public class Attractor extends Mortal {
 						cellSafeness = dijkstras[k][nextX][nextY];
 				}
 				
-				if (cellSafeness > maxSafeness) {
-					maxSafeness = cellSafeness;
-					safestPlaceX = nextX;
-					safestPlaceY = nextY;
+				if (cellSafeness >= maxSafeness) {
+					if (cellSafeness != maxSafeness) {
+						safestPlacesX.clear();
+						safestPlacesY.clear();
+						maxSafeness = cellSafeness;
+					}
+					
+					safestPlacesX.add(nextX);
+					safestPlacesY.add(nextY);
 				}
 			}
 		}
@@ -117,10 +124,11 @@ public class Attractor extends Mortal {
 			return;
 		}
 		
+		randomlyChosenIndex = Agent.r.nextInt(safestPlacesX.size());
 		this.oldPosX = this.posX;
 		this.oldPosY = this.posY;
-		this.posX = safestPlaceX;
-		this.posY = safestPlaceY;
+		this.posX = safestPlacesX.get(randomlyChosenIndex);
+		this.posY = safestPlacesY.get(randomlyChosenIndex);
 		
 		this.env.moveAgent(this);
 	}
