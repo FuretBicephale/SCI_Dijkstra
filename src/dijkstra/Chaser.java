@@ -28,8 +28,9 @@ public class Chaser extends Agent {
 	
 		List<Attractor> attractors = new ArrayList<Attractor>();
 		int[][][] dijkstras;
-		int minX = -1;
-		int minY = -1;
+		List<Integer> xMins = new ArrayList<Integer>();
+		List<Integer> yMins = new ArrayList<Integer>();
+		int randomlyChosenIndex;
 		int minDijkstra = -1;
 		
 		// Get the attractors
@@ -63,10 +64,15 @@ public class Chaser extends Agent {
 					continue;
 				
 				for(int k = 0; k < attractors.size(); k++) {
-					if(minDijkstra == -1 || (dijkstras[k][nextX][nextY] != -1 && minDijkstra > dijkstras[k][nextX][nextY])) {
-						minDijkstra = dijkstras[k][nextX][nextY];
-						minX = nextX;
-						minY = nextY;
+					if(minDijkstra == -1 || (dijkstras[k][nextX][nextY] != -1 && minDijkstra >= dijkstras[k][nextX][nextY])) {
+						if (minDijkstra != dijkstras[k][nextX][nextY]) {
+							minDijkstra = dijkstras[k][nextX][nextY];
+							xMins.clear();
+							yMins.clear();
+						}
+						
+						xMins.add(nextX);
+						yMins.add(nextY);
 					}
 				}
 				
@@ -75,17 +81,18 @@ public class Chaser extends Agent {
 		
 		// L'agent est probablement entouré de murs ou la cible est innaccessible.
 		if (minDijkstra == -1) return;
-				
-		Agent a = this.env.getAgent(minX, minY);
+		
+		randomlyChosenIndex = Agent.r.nextInt(xMins.size());
+		this.oldPosX = this.posX;
+		this.oldPosY = this.posY;
+		this.posX = xMins.get(randomlyChosenIndex);
+		this.posY = yMins.get(randomlyChosenIndex);
+		
+		Agent a = this.env.getAgent(this.posX, this.posY);
 		if(a != null && a instanceof Attractor && !((Mortal) a).isDead()) {
 			((Mortal)a).die();
 			//new Attractor(env); // Quand y en a plus y en a encore!
 		}
-		
-		this.oldPosX = this.posX;
-		this.oldPosY = this.posY;
-		this.posX = minX;
-		this.posY = minY;
 		
 		this.env.moveAgent(this);
 		
