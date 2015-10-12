@@ -58,7 +58,8 @@ public class Chaser extends Agent {
 				int nextX = this.env.getNextX(this.posX, i);
 				int nextY = this.env.getNextY(this.posY, j);
 				
-				if(nextX == this.posX && nextY == this.posY)
+				if((nextX == this.posX && nextY == this.posY) || 
+						(this.env.getAgent(nextX, nextY) != null && !(this.env.getAgent(nextX, nextY) instanceof Attractor)))
 					continue;
 				
 				for(int k = 0; k < attractors.size(); k++) {
@@ -96,7 +97,6 @@ public class Chaser extends Agent {
 		return this.dijkstra;
 	}
 
-	@Override
 	public void draw(Graphics g, int cellSize) {
 //		int[][] dijkstra;
 //		Attractor attractor = null;

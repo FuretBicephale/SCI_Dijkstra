@@ -5,7 +5,7 @@ import core.SMA;
 public class Simulation {
 		
 	public static void printHelp() {
-		System.err.println("Use : Java Simulation envWidth envHeight cellSize toric sleepLength nbAttractors nbChasers nbWalls nbTurns");
+		System.err.println("Use : Java Simulation envWidth envHeight cellSize toric sleepLength nbAttractors nbChasers nbrRepulsers nbWalls nbTurns");
 		System.err.println("envWidth = Environment width (int)");
 		System.err.println("envHeight = Environment height (int)");
 		System.err.println("cellSize = Graphical size of each cell (int)");
@@ -13,17 +13,18 @@ public class Simulation {
 		System.err.println("sleepLength = Time in ms to wait between each turn (int)");
 		System.err.println("nbAttractors = Number of attractors created for the simulation (int)");
 		System.err.println("nbChasers = Number of chasers created for the simulation (int)");
+		System.err.println("nbRepulser = Number of repulsers created for the simulation (int)");
 		System.err.println("nbWalls = Number of walls created for the simulation (int)");
 		System.err.println("nbTurns = Number of turns of the simulation (int)");
 	}
 	
-	// Use : Java Simulation envWidth envHeight cellSize toric sleepLength nbAttractors nbChasers nbTurns
+	// Use : Java Simulation envWidth envHeight cellSize toric sleepLength nbAttractors nbChasers nbRepulsers nbWalls nbTurns
 	public static void main(String[] args) {
 		
-		int width, height, cellSize, sleepLength, nbAttractors, nbChasers, nbWalls, nbTurns=0;
+		int width, height, cellSize, sleepLength, nbAttractors, nbChasers, nbRepulsers, nbWalls, nbTurns=0;
 		boolean toric, sansFin = false;
 		
-		if(args.length < 8 || args.length > 9) {
+		if(args.length < 9 || args.length > 10) {
 			System.err.println("Error : Unexpected number of parameters");
 			printHelp();
 			return;
@@ -37,9 +38,10 @@ public class Simulation {
 			sleepLength = Integer.parseInt(args[4]);
 			nbAttractors = Integer.parseInt(args[5]);
 			nbChasers = Integer.parseInt(args[6]);
-			nbWalls = Integer.parseInt(args[7]);
-			if (args.length == 9)
-				nbTurns = Integer.parseInt(args[8]);
+			nbRepulsers = Integer.parseInt(args[7]);
+			nbWalls = Integer.parseInt(args[8]);
+			if (args.length == 10)
+				nbTurns = Integer.parseInt(args[9]);
 			else
 				sansFin = true;
 		} catch(NumberFormatException e) {
@@ -65,6 +67,10 @@ public class Simulation {
 		
 		for(int i = 0; i < nbChasers; i++) {
 			new Chaser(sma.getEnv());
+		}
+		
+		for(int i = 0; i < nbRepulsers; i++) {
+			new Repulser(sma.getEnv());
 		}
 				
 		try {

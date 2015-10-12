@@ -61,6 +61,23 @@ public abstract class Agent {
 	public int getPosY() {
 		return this.posY;
 	}
+	
+	protected void moveRandomly() {
+		int nextX = this.env.getNextX(this.posX, Agent.r.nextInt(3) - 1);
+		int nextY = this.env.getNextY(this.posY, Agent.r.nextInt(3) - 1);
+				
+		while(this.env.getAgent(nextX, nextY) != null && this.env.getAgent(nextX, nextY) != this) {
+			nextX = this.env.getNextX(this.posX, Agent.r.nextInt(3) - 1);
+			nextY = this.env.getNextY(this.posY, Agent.r.nextInt(3) - 1);
+		}
+		
+		this.oldPosX = this.posX;
+		this.oldPosY = this.posY;
+		this.posX = nextX;
+		this.posY = nextY;
+		
+		this.env.moveAgent(this);
+	}
 		
 	// Ask agent to make a decision for the current turn
 	public abstract void decide();

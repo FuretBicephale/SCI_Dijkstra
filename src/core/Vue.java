@@ -41,7 +41,6 @@ public abstract class Vue implements Observer {
 		this.frame.pack();
 	}
 
-	@Override
 	public void update(Observable arg0, Object arg1) {
 		SMA sma = (SMA) arg0;
 		Image offScreen = this.envPanel.createImage(this.envPanel.getWidth(), this.envPanel.getHeight());

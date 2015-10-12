@@ -29,7 +29,24 @@ public class Attractor extends Mortal {
 		//moveRandomly();
 		fleeThreat();
 		
-		dijkstra = DijkstraComputer.computeDijkstra(this.env, this);
+		this.dijkstra = DijkstraComputer.computeDijkstra(this.env, this);
+				
+		// Take care of repulsers
+		for(int i = 0; i < this.env.getWidth(); i++) {
+			for(int j = 0; j < this.env.getHeight(); j++) {
+				Agent a = this.env.getAgent(i, j);
+				if(a != null && a instanceof Repulser) {
+					for(int x = -3; x < 3; x++) {
+						for(int y = -3; y < 3; y++) {
+							int realX = this.env.getNextX(i, x);
+							int realY = this.env.getNextY(j, y);
+							this.dijkstra[realX][realY] = Math.max(this.dijkstra[realX][realY], 
+									this.env.getHeight() + this.env.getWidth() - (Math.abs(x) + Math.abs(y)));
+						}
+					}
+				}
+			}
+		}
 	
 	}
 	
@@ -37,27 +54,9 @@ public class Attractor extends Mortal {
 		return this.dijkstra;
 	}
 
-	@Override
 	public void draw(Graphics g, int cellSize) {
 		g.setColor(Color.ORANGE);
 		g.fillOval(this.posX * cellSize, this.posY * cellSize, cellSize, cellSize);
-	}
-	
-	private void moveRandomly() {
-		int nextX = this.env.getNextX(this.posX, Agent.r.nextInt(3) - 1);
-		int nextY = this.env.getNextY(this.posY, Agent.r.nextInt(3) - 1);
-				
-		while(this.env.getAgent(nextX, nextY) != null && this.env.getAgent(nextX, nextY) != this) {
-			nextX = this.env.getNextX(this.posX, Agent.r.nextInt(3) - 1);
-			nextY = this.env.getNextY(this.posY, Agent.r.nextInt(3) - 1);
-		}
-		
-		this.oldPosX = this.posX;
-		this.oldPosY = this.posY;
-		this.posX = nextX;
-		this.posY = nextY;
-		
-		this.env.moveAgent(this);
 	}
 
 	private void fleeThreat() {
@@ -94,7 +93,8 @@ public class Attractor extends Mortal {
 				int nextX = this.env.getNextX(this.posX, i);
 				int nextY = this.env.getNextY(this.posY, j);
 
-				if(nextX == this.posX && nextY == this.posY)
+				if((nextX == this.posX && nextY == this.posY) || 
+						(this.env.getAgent(nextX, nextY) != null))
 					continue;
 
 				cellSafeness=Integer.MAX_VALUE;
