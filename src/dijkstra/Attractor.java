@@ -36,8 +36,8 @@ public class Attractor extends Mortal {
 			for(int j = 0; j < this.env.getHeight(); j++) {
 				Agent a = this.env.getAgent(i, j);
 				if(a != null && a instanceof Repulser) {
-					for(int x = -3; x < 3; x++) {
-						for(int y = -3; y < 3; y++) {
+					for(int x = -Repulser.REPULSER_RANGE; x < Repulser.REPULSER_RANGE; x++) {
+						for(int y = -Repulser.REPULSER_RANGE; y < Repulser.REPULSER_RANGE; y++) {
 							int realX = this.env.getNextX(i, x);
 							int realY = this.env.getNextY(j, y);
 							this.dijkstra[realX][realY] = Math.max(this.dijkstra[realX][realY], 
