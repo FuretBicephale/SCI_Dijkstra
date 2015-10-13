@@ -63,6 +63,14 @@ public class Chaser extends Agent {
 						(this.env.getAgent(nextX, nextY) != null && !(this.env.getAgent(nextX, nextY) instanceof Attractor)))
 					continue;
 				
+				if(this.env.getAgent(nextX, nextY) != null && this.env.getAgent(nextX, nextY) instanceof Attractor) {
+					xMins.clear();
+					yMins.clear();
+					xMins.add(nextX);
+					yMins.add(nextY);
+					break;
+				}
+				
 				for(int k = 0; k < attractors.size(); k++) {
 					if(minDijkstra == -1 || (dijkstras[k][nextX][nextY] != -1 && minDijkstra >= dijkstras[k][nextX][nextY])) {
 						if (minDijkstra != dijkstras[k][nextX][nextY]) {
@@ -105,27 +113,36 @@ public class Chaser extends Agent {
 	}
 
 	public void draw(Graphics g, int cellSize) {
-//		int[][] dijkstra;
-//		Attractor attractor = null;
+		
 		g.setColor(new Color(0, 210, 0));
 		g.fillOval(this.posX * cellSize, this.posY * cellSize, cellSize, cellSize);
 		
-//		for(int i = 0; i < this.env.getWidth(); i++) {
-//			for(int j = 0; j < this.env.getHeight(); j++) {
-//				Agent a = this.env.getAgent(i, j);
-//				if(a != null && a instanceof Attractor) {
-//					attractor = (Attractor) a;
-//				}
-//			}
-//		}
-//		if (attractor==null) return;
-//		dijkstra = DijkstraComputer.computeDijkstra(env, attractor);
-//		
-//		for (int i=0 ; i<env.getWidth() ; i++) {
-//			for (int j=0 ; j<env.getHeight() ; j++) {
-//				g.drawString(""+dijkstra[i][j], i*cellSize, j*cellSize+cellSize);
-//			}
-//		}
+		/*int[][] dijkstra;
+		Attractor attractor = null;
+		for(int i = 0; i < this.env.getWidth(); i++) {
+			for(int j = 0; j < this.env.getHeight(); j++) {
+				Agent a = this.env.getAgent(i, j);
+				if(a != null && a instanceof Attractor) {
+					attractor = (Attractor) a;
+				}
+			}
+		}
+		if (attractor==null) return;
+		dijkstra = DijkstraComputer.computeDijkstra(env, attractor);
+		
+		for (int i=0 ; i<env.getWidth() ; i++) {
+			for (int j=0 ; j<env.getHeight() ; j++) {
+				if(this.env.getAgent(i, j) != null)
+					continue;
+				if(dijkstra[i][j] == -1) {
+					g.setColor(new Color(0, 0, 0));					
+				} else {
+					System.out.println(Math.max(255-dijkstra[i][j], 0));
+					g.setColor(new Color(Math.max(255-10*dijkstra[i][j], 0), Math.max(255-10*dijkstra[i][j], 0), Math.max(255-10*dijkstra[i][j], 0)));					
+				}
+				g.fillRect(i * cellSize, j * cellSize, cellSize, cellSize);
+			}
+		}*/
 	}
 
 }
