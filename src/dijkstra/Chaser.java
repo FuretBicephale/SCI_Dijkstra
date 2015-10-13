@@ -117,7 +117,7 @@ public class Chaser extends Agent {
 		g.setColor(new Color(0, 210, 0));
 		g.fillOval(this.posX * cellSize, this.posY * cellSize, cellSize, cellSize);
 		
-		/*int[][] dijkstra;
+		int[][] dijkstra;
 		Attractor attractor = null;
 		for(int i = 0; i < this.env.getWidth(); i++) {
 			for(int j = 0; j < this.env.getHeight(); j++) {
@@ -135,14 +135,14 @@ public class Chaser extends Agent {
 				if(this.env.getAgent(i, j) != null)
 					continue;
 				if(dijkstra[i][j] == -1) {
-					g.setColor(new Color(0, 0, 0));					
+					g.setColor(new Color(0, 0, 0));	
+					System.out.println(i + " - " + j + " = " +  this.env.getAgent(i, j));
 				} else {
-					System.out.println(Math.max(255-dijkstra[i][j], 0));
 					g.setColor(new Color(Math.max(255-10*dijkstra[i][j], 0), Math.max(255-10*dijkstra[i][j], 0), Math.max(255-10*dijkstra[i][j], 0)));					
 				}
 				g.fillRect(i * cellSize, j * cellSize, cellSize, cellSize);
 			}
-		}*/
+		}
 	}
 
 }
